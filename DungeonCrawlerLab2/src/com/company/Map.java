@@ -4,51 +4,78 @@ public class Map {
     int x = 0;
     int y = 0;
     Tile charTile = new Tile(x, y);
+    Tile[] enemyTile = {new Tile(2, 3), new Tile(3, 3)} ;
+
 
     public void moveUp(){
+        y = y - 1;
         if(IS_EDGE()){
             System.out.println("You have hit a wall");
+            y = y + 1;
             return;  // To exit if when the coordinates are out of bounds
         }
-        y = y - 1;
         charTile = new Tile(x, y);
     }
+
 
     public void moveDown(){
+        y = y + 1;
         if(IS_EDGE()){
+            y = y - 1;
             System.out.println("You have hit a wall");
             return;
         }
-        y = y + 1;
         charTile = new Tile(x, y);
     }
+
 
     public void moveRight(){
+        x = x + 1;
         if(IS_EDGE()){
+            x = x - 1;
             System.out.println("You have hit a wall");
             return;
         }
-        x = x + 1;
         charTile = new Tile(x, y);
     }
+
 
     public void moveLeft(){
+        x = x - 1;
         if(IS_EDGE()){
+            x = x + 1;
             System.out.println("You have hit a wall");
             return;
         }
-        x = x - 1;
         charTile = new Tile(x, y);
     }
 
+
+    // Return player's location
     public String getCharLoc(){
         return charTile.getLocation();
     }
 
-    public boolean IS_EDGE(){
-        boolean IS_EDGE = x >= 4 || y >= 4;
 
+    // Return enemie's location
+    public String getEnemyLoc(int index) { return enemyTile[index].getLocation(); }
+
+
+    // Check for map boundaries
+    public boolean IS_EDGE(){
+        boolean IS_EDGE = x >= 4 || y >= 4 || x < 0 || y < 0;
         return IS_EDGE;
+    }
+
+    // Enemy encounter
+    public boolean enemyDetected(){
+        boolean enemyDetected = false;
+        for(int i = 0; i < enemyTile.length; i++) {
+            if (getCharLoc().equals(getEnemyLoc(i))) {      // Check if player is on the same tile as enemy
+                enemyDetected = true;
+            }
+        }
+        return enemyDetected;
     }
 
 

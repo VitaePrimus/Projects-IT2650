@@ -5,4 +5,8 @@ public class Enemy extends Character {
         super(maxHealth, defence, attack);
     }
 
+    public void attack(Hero hero){
+        hero.setMaxHealth(hero.getMaxHealth() - this.getAttack());
+    }
+
 }
