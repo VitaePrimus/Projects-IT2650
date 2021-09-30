@@ -1,11 +1,14 @@
 package com.company;
 
 public class Hero extends Character {
-    private int potions = 1;
+    private int potions;
+    private Tile charTile;
 
 
     public Hero(int maxHealth, int defence, int attack) {
         super(maxHealth, defence, attack);
+        potions = 1;
+        charTile = new Tile(0,0);
     }
 
     public void attack(Enemy enemy){
@@ -30,6 +33,30 @@ public class Hero extends Character {
 
         return message;
     }
+
+
+    public void move(String direction){
+        if(direction.equalsIgnoreCase("n")){
+            charTile = new Tile(charTile.getX(), charTile.getY() - 1);
+        }
+        else if(direction.equalsIgnoreCase("s")){
+            charTile = new Tile(charTile.getX(), charTile.getY() + 1);
+        }
+        else if(direction.equalsIgnoreCase("w")){
+            charTile = new Tile(charTile.getX() - 1, charTile.getY());
+        }
+        else if(direction.equalsIgnoreCase("e")){
+            charTile = new Tile(charTile.getX() + 1, charTile.getY());
+        }
+    }
+
+    public String getCharLoc(){
+        return charTile.getLocation();
+    }
+
+    public Tile getCharTile() { return charTile; }
+
+    public void setCharTile(Tile charTile) { this.charTile = charTile; }
 
     public void setPotions(int num){
         potions = potions + num;
