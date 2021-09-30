@@ -55,7 +55,7 @@ public class Main {
 //                }
 //            }
 
-            System.out.println(p1.getCharLoc());
+            System.out.println(p1.getCharTile());
             currentPosition = newPosition;
         }
 

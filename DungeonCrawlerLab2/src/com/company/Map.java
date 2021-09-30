@@ -5,10 +5,11 @@ import java.util.ArrayList;
 public class Map {
     ArrayList<Tile> enemyTile;
     ArrayList<Tile> potionTile;
-    ArrayList<Wall> wall;
+    Generator generator;
 
     public Map(){
-
+        generator = new Generator();
+        generator.generateWalls();
     }
 
     // Return enemie's location
@@ -21,24 +22,38 @@ public class Map {
 
     // Check for map boundaries
     public boolean IS_EDGE(Hero hero){
-        boolean IS_EDGE =   hero.getCharTile().getX() >= 4 ||
-                            hero.getCharTile().getY() >= 4 ||
+        boolean IS_EDGE =   hero.getCharTile().getX() >= 16 ||
+                            hero.getCharTile().getY() >= 16 ||
                             hero.getCharTile().getX() < 0 ||
                             hero.getCharTile().getY() < 0;
         return IS_EDGE;
     }
 
+    public boolean IS_WALL(Hero hero){
+        boolean IS_WALL = true;
+        for(int i = 0; i < generator.getWall().size(); i++){
+            if(hero.getCharTile().getLocation().equals(generator.getWallTile(i).getLocation())){    // Get character tile and get wall tile and compare them.
+                IS_WALL = true;
+                break;
+            }
+            else{
+                IS_WALL = false;
+            }
+        }
+        return IS_WALL;
+    }
+
 
     // Enemy encounter
-//    public boolean enemyDetected(Hero hero){
-//        boolean enemyDetected = false;
-//        for(int i = 0; i < enemyTile.size(); i++) {
-//            if (hero.getCharTile().equals(getEnemyLoc(i))) {      // Check if player is on the same tile as enemy, index goes to getEnemyLoc()
-//                enemyDetected = true;
-//            }
-//        }
-//        return enemyDetected;
-//    }
+    public boolean enemyDetected(Hero hero){
+        boolean enemyDetected = false;
+        for(int i = 0; i < enemyTile.size(); i++) {
+            if (hero.getCharTile().getLocation().equals(generator.getEnemyTile(i).getLocation())) {      // Check if player is on the same tile as enemy
+                enemyDetected = true;
+            }
+        }
+        return enemyDetected;
+    }
 //
 //    public boolean potionFound(){
 //        boolean potionFound = false;
@@ -54,16 +69,19 @@ public class Map {
 //
     public String getEvent(Hero hero, Tile currentTile, Tile newTile){
         String event = "%n";
-//        if(enemyDetected()){
-//            event = "You have encountered an enemy.";
-//        }
+
         if(IS_EDGE(hero)){
-            event = "You have hit a wall (edge).%n%n";
+            event = "You are at the edge of the dungeon.%n%n";
             hero.setCharTile(currentTile);
         }
-//        if(potionFound()){
-//            hero.setPotions(1);
-//            event = "You have found a potion.";
+
+        if(IS_WALL(hero)){
+            event = "You are facing a wall.%n%n";
+            hero.setCharTile(currentTile);
+        }
+
+//        if(enemyDetected(hero)){
+//
 //        }
         return event;
     }
