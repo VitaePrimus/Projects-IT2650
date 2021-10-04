@@ -8,7 +8,8 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         Hero p1 = new Hero(100, 5, 50);
-        Enemy e1 = new Enemy(100, 1, 1);
+        Map map = new Map();
+
         Tile currentPosition;
         Tile newPosition;
 
@@ -35,7 +36,7 @@ public class Main {
 //                p1.map.moveDown();
 //            }
 
-            System.out.printf(p1.map.getEvent(p1, currentPosition, newPosition));          // Gets an event and prints a message identifying it
+            System.out.printf(map.getEvent(p1, currentPosition, newPosition));          // Gets an event and prints a message identifying it
 
 //            while(p1.map.enemyDetected(p1) && e1.getMaxHealth() > 0){
 //                System.out.println("Chose your option: attack - A, Drink potion - P, escape - R");
@@ -55,7 +56,7 @@ public class Main {
 //                }
 //            }
 
-            System.out.println(p1.getCharTile());
+            System.out.printf("Your location is: %s.%n", p1.getCharTile());
             currentPosition = newPosition;
         }
 

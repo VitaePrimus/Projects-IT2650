@@ -3,16 +3,14 @@ package com.company;
 public class Hero extends Character {
     private int potions;
     private Tile charTile;
+    private int currentHealth;
 
 
     public Hero(int maxHealth, int defence, int attack) {
         super(maxHealth, defence, attack);
         potions = 1;
         charTile = new Tile(0,0);
-    }
-
-    public void attack(Enemy enemy){
-        enemy.setMaxHealth(enemy.getMaxHealth() - this.getAttack());
+        currentHealth = maxHealth;
     }
 
 
@@ -35,6 +33,7 @@ public class Hero extends Character {
     }
 
 
+    // Hero movement. Destroys old tile, creates new hero tile with new coordinates.
     public void move(String direction){
         if(direction.equalsIgnoreCase("n")){
             charTile = new Tile(charTile.getX(), charTile.getY() - 1);
@@ -50,6 +49,14 @@ public class Hero extends Character {
         }
     }
 
+
+    // Starting a fight
+    public void startFight(Enemy enemy){
+        while(this.currentHealth > 0 && enemy.getCurrentHealth() > 0){
+            break;
+        }
+    }
+
     public String getCharLoc(){
         return charTile.getLocation();
     }
@@ -61,4 +68,9 @@ public class Hero extends Character {
     public void setPotions(int num){
         potions = potions + num;
     }
+
+    public void setCurrentHealth(int currentHealth) { this.currentHealth = currentHealth; }
+
+    public int getCurrentHealth() { return currentHealth; }
+
 }

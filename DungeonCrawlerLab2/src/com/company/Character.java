@@ -4,7 +4,7 @@ abstract class Character {
     private int maxHealth;
     private int defence;
     private int attack;
-    Map map = new Map();
+    //Map map = new Map();
 
     public Character(int maxHealth , int defence, int attack){
         this.maxHealth = maxHealth;

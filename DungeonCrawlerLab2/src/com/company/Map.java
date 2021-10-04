@@ -3,27 +3,23 @@ package com.company;
 import java.util.ArrayList;
 
 public class Map {
-    ArrayList<Tile> enemyTile;
-    ArrayList<Tile> potionTile;
     Generator generator;
+    Tile winningTile;
+
 
     public Map(){
         generator = new Generator();
         generator.generateWalls();
-    }
+        generator.generateEnemies();
 
-    // Return enemie's location
-//    public String getEnemyLoc(int index) { return enemyTile[index].getLocation(); }
-//
-//    public String getPotionLoc(int index) { return potionTile[index].getLocation(); }
-//
-//    public String getWallLoc(int index) { return wall.wall.get(index).getLocation(); }
+        winningTile = new Tile(11,12);
+    }
 
 
     // Check for map boundaries
     public boolean IS_EDGE(Hero hero){
-        boolean IS_EDGE =   hero.getCharTile().getX() >= 16 ||
-                            hero.getCharTile().getY() >= 16 ||
+        boolean IS_EDGE =   hero.getCharTile().getX() >= 16 ||      // Map size, currently 16x16
+                            hero.getCharTile().getY() >= 16 ||      // Creates 256 tile map
                             hero.getCharTile().getX() < 0 ||
                             hero.getCharTile().getY() < 0;
         return IS_EDGE;
@@ -47,12 +43,16 @@ public class Map {
     // Enemy encounter
     public boolean enemyDetected(Hero hero){
         boolean enemyDetected = false;
-        for(int i = 0; i < enemyTile.size(); i++) {
+        for(int i = 0; i < generator.getEnemy().size(); i++) {
             if (hero.getCharTile().getLocation().equals(generator.getEnemyTile(i).getLocation())) {      // Check if player is on the same tile as enemy
                 enemyDetected = true;
             }
         }
         return enemyDetected;
+    }
+
+    public boolean win(Tile tile){
+        return tile.getLocation().equals(winningTile.getLocation());
     }
 //
 //    public boolean potionFound(){
@@ -71,18 +71,27 @@ public class Map {
         String event = "%n";
 
         if(IS_EDGE(hero)){
-            event = "You are at the edge of the dungeon.%n%n";
+            event = "%nYou are at the edge of the dungeon.%n";
             hero.setCharTile(currentTile);
         }
 
         if(IS_WALL(hero)){
-            event = "You are facing a wall.%n%n";
+            event = "%nYou are facing a wall.%n";
             hero.setCharTile(currentTile);
         }
 
-//        if(enemyDetected(hero)){
-//
-//        }
+        if(enemyDetected(hero)){
+            event = "%nYou have encountered an enemy.%n";
+            for(int i = 0; i < generator.getEnemy().size(); i++) {
+                if (hero.getCharTile().getLocation().equals(generator.getEnemyTile(i).getLocation())) {
+                    hero.startFight(generator.getEnemy().get(i));
+                }
+            }
+        }
+
+        if(win(newTile)){
+            event = "%nYou won!%n";
+        }
         return event;
     }
 
