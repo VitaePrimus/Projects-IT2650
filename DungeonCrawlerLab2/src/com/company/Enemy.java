@@ -1,6 +1,7 @@
 package com.company;
 
 public class Enemy extends Character {
+    private Tile startingTile;
     private Tile enemyTile;
     private int currentHealth;
 
@@ -9,10 +10,11 @@ public class Enemy extends Character {
         super(maxHealth, defence, attack);
         this.enemyTile = enemyTile;
         currentHealth = maxHealth;
+        startingTile = enemyTile;
     }
 
     public void attack(Hero hero){
-        hero.setMaxHealth(hero.getMaxHealth() - this.getAttack());
+        hero.setCurrentHealth(hero.getCurrentHealth() - this.getAttack());
     }
 
     public String getEnemyLoc(){
@@ -22,6 +24,13 @@ public class Enemy extends Character {
     public Tile getEnemyTile(){
         return enemyTile;
     }
+
+    public Tile getStartingTile(){
+        return startingTile;
+    }
+
+
+    public void setEnemyTile(int x, int y){ this.enemyTile = new Tile(x,y); }
 
     public void setCurrentHealth(int currentHealth) { this.currentHealth = currentHealth; }
 

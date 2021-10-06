@@ -1,6 +1,6 @@
 package com.company;
 
-import java.util.ArrayList;
+import java.util.Random;
 
 public class Map {
     Generator generator;
@@ -94,5 +94,34 @@ public class Map {
         }
         return event;
     }
+
+    public void moveEnemy(){
+        for(int i = 0; i < generator.getEnemy().size(); i++) {
+            Random rng = new Random();
+            int random = rng.nextInt(4);
+
+            int constX = generator.getEnemy().get(i).getStartingTile().getX();
+            int constY = generator.getEnemy().get(i).getStartingTile().getY();
+
+            int newX = generator.getEnemy().get(i).getEnemyTile().getX();
+            int newY = generator.getEnemy().get(i).getEnemyTile().getY();
+
+            if(random == 0){
+                newX = newX + 1;
+            }
+            if(random == 1){
+                newX = newX - 1;
+            }
+            if(random == 2){
+                newY = newY + 1;
+            }
+            if(random == 3){
+                newY = newY + 1;
+            }
+
+            generator.getEnemy().get(i).setEnemyTile(newX, newY);
+        }
+    }
+
 
 }

@@ -36,6 +36,10 @@ public class Main {
 //                p1.map.moveDown();
 //            }
 
+            for(int i = 0; i < map.generator.getEnemy().size(); i++){
+                map.moveEnemy();
+            }
+
             System.out.printf(map.getEvent(p1, currentPosition, newPosition));          // Gets an event and prints a message identifying it
 
 //            while(p1.map.enemyDetected(p1) && e1.getMaxHealth() > 0){
