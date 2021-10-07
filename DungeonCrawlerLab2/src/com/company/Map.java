@@ -91,17 +91,19 @@ public class Map {
     public void moveEnemy(Hero hero){
         for(int i = 0; i < generator.getEnemy().size(); i++) {
             Random rng = new Random();
+            String newEnemyTile;
 
             int constX = generator.getEnemyStartingTile(i).getX();
             int constY = generator.getEnemyStartingTile(i).getY();
 
-            boolean flag1 = true;   // Checking if not on the wall
-            boolean flag2 = true;   // Checking if not on the other enemies position
-            boolean flag3 = true;   // Checking for map boundaries
-            boolean flag4 = true;   // Checking so that the distance is not mora than 2 from original spot
+            boolean flag1;   // Checking if not on the wall
+            boolean flag2;   // Checking if not on the other enemies position
+            boolean flag3;   // Checking for map boundaries
+            boolean flag4;   // Checking so that the distance is not mora than 2 from original spot
 
 
-            while(flag1 || flag2 || flag3 || flag4) {
+            while(true) {
+                flag1 = false; flag2 = false; flag3 = false; flag4 = false;
 
                 int random = rng.nextInt(4);
                 int newX = generator.getEnemy().get(i).getEnemyTile().getX();
@@ -115,25 +117,19 @@ public class Map {
                 }
 
                 generator.getEnemy().get(i).setNewTile(newX, newY);
-                String newEnemyTile = generator.getEnemyNewTile(i).getLocation();
+                newEnemyTile = generator.getEnemyNewTile(i).getLocation();
 
                 if(newEnemyTile.equals(hero.getCharTile().getLocation())){
                     //hero.startFight(generator.getEnemy().get(i));
                 }
 
                 for(int x = 0; x < generator.getWall().size(); x++) {
-                    if (newEnemyTile.equals(generator.getWall().get(x).getLocation())) {
-                        flag1 = true;
-                        break;
-                    }
-                    else{ flag1 = false; }
+                    flag1 = newEnemyTile.equals(generator.getWall().get(x).getLocation());
+                    if(flag1) {break;}
                 }
-                for(int x = 0; x < generator.getEnemy().size(); x++) {
-                    if (newEnemyTile.equals(generator.getEnemyTile(x).getLocation())) {
-                        flag2 = true;
-                        break;
-                    }
-                    else{ flag2 = false; }
+                for(int v = 0; v < generator.getEnemy().size(); v++) {
+                    flag2 = newEnemyTile.equals(generator.getEnemyTile(v).getLocation());
+                    if(flag2) {break;}
                 }
 
                 flag3 = newX < 0 || newX >= 16 && newY < 0 || newY >= 16;
