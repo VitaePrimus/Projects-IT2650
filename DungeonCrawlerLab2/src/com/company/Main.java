@@ -24,12 +24,12 @@ public class Main {
             p1.move(choice);                        // Move character
             newPosition = p1.getCharTile();         // Position after moving
 
-
-            System.out.printf(map.getEvent(p1, currentPosition, newPosition));          // Gets an event and prints a message identifying it
-
             for(int i = 0; i < map.generator.getEnemy().size(); i++){
                 map.moveEnemy(p1);
             }
+
+            System.out.printf(map.getEvent(p1, currentPosition, newPosition));          // Gets an event and prints a message identifying it
+
 
             System.out.printf("Your location is: %s.%n", p1.getCharTile());
             currentPosition = newPosition;
