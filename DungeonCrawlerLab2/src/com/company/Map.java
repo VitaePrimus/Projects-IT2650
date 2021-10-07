@@ -101,7 +101,7 @@ public class Map {
             boolean flag4 = true;   // Checking so that the distance is not mora than 2 from original spot
 
 
-            while(flag1 || flag2 || flag3 || flag4) {
+            while(flag1 || flag2 || !flag3 || !flag4) {
 
                 int random = rng.nextInt(4);
                 int newX = generator.getEnemy().get(i).getNewTile().getX();
@@ -136,10 +136,10 @@ public class Map {
                     else{ flag2 = false; }
                 }
 
-                if(newX > 0 || newX <= 16 && newY > 0 || newY <= 16){ flag3 = false; }
-                if(newX < constX + 2 && newY < constY + 2){ flag4 = false; }
+                flag3 = newX > 0 || newX <= 16 && newY > 0 || newY <= 16;
+                flag4 = newX < constX + 2 && newY < constY + 2;
 
-                if(!flag1 && !flag2 && !flag3 && !flag4){ break; }    // Exit loop when enemy moved
+                if(!flag1 && !flag2 && flag3 && flag4){ break; }    // Exit loop when enemy moved
 
                 generator.getEnemy().get(i).setNewTile
                         (generator.getEnemy().get(i).getEnemyTile().getX(),
