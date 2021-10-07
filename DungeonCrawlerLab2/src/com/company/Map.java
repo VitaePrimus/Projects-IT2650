@@ -142,12 +142,14 @@ public class Map {
                 if(!flag1 && !flag2 && !flag3 && !flag4){ break; }    // Exit loop when enemy moved
 
                 generator.getEnemy().get(i).setNewTile
-                        (generator.getEnemy().get(i).getEnemyTile().getX(), generator.getEnemy().get(i).getEnemyTile().getY());
+                        (generator.getEnemy().get(i).getEnemyTile().getX(),
+                         generator.getEnemy().get(i).getEnemyTile().getY());
             }
 
             // Set the enemy tile to the one the enemy moved
             generator.getEnemy().get(i).setEnemyTile
-                    (generator.getEnemy().get(i).getNewTile().getX(),generator.getEnemy().get(i).getNewTile().getY());
+                    (generator.getEnemy().get(i).getNewTile().getX(),
+                     generator.getEnemy().get(i).getNewTile().getY());
         }
     }
 
