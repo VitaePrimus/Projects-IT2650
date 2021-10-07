@@ -3,12 +3,12 @@ package com.company;
 import java.util.Scanner;
 
 public class Main {
+    static Map map = new Map();
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
         Hero p1 = new Hero(100, 5, 50);
-        Map map = new Map();
 
         Tile currentPosition;
         Tile newPosition;
@@ -17,7 +17,7 @@ public class Main {
 
         while(true){
             System.out.println("Where to go?");
-            System.out.print("(N)orth, (S)outh, (W)est, (E)ast: ");
+            System.out.print("North(W), South(S), West(A), East(D): ");
             choice = scanner.nextLine();
 
             currentPosition = p1.getCharTile();     // Remembers position before moving
@@ -28,12 +28,26 @@ public class Main {
                 map.moveEnemy(p1);
             }
 
-            System.out.printf(map.getEvent(p1, currentPosition, newPosition));          // Gets an event and prints a message identifying it
-
+            eventManager(p1, currentPosition, newPosition);
 
             System.out.printf("Your location is: %s.%n", p1.getCharTile());
             currentPosition = newPosition;
         }
+
+    }
+
+    static void eventManager(Hero hero, Tile currentTile, Tile newTile){
+        System.out.println();
+        if(map.IS_EDGE(hero, currentTile)){
+            System.out.printf("%nYou are at the edge of the dungeon.%n");
+        };
+        if(map.IS_WALL(hero, currentTile)){
+            System.out.printf("%nYou are facing a wall.%n");
+        };
+        if(map.enemyDetected(hero, currentTile)){
+            System.out.printf("%nYou have encountered an enemy.%n");
+//            hero.startFight();
+        };
 
     }
 }

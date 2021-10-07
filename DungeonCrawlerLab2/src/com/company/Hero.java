@@ -35,26 +35,28 @@ public class Hero extends Character {
 
     // Hero movement. Destroys old tile, creates new hero tile with new coordinates.
     public void move(String direction){
-        if(direction.equalsIgnoreCase("n")){
+        if(direction.equalsIgnoreCase("w")){
             charTile = new Tile(charTile.getX(), charTile.getY() - 1);
         }
         else if(direction.equalsIgnoreCase("s")){
             charTile = new Tile(charTile.getX(), charTile.getY() + 1);
         }
-        else if(direction.equalsIgnoreCase("w")){
+        else if(direction.equalsIgnoreCase("a")){
             charTile = new Tile(charTile.getX() - 1, charTile.getY());
         }
-        else if(direction.equalsIgnoreCase("e")){
+        else if(direction.equalsIgnoreCase("d")){
             charTile = new Tile(charTile.getX() + 1, charTile.getY());
         }
     }
 
 
     // Starting a fight
-    public void startFight(Enemy enemy){
+    public boolean startFight(Enemy enemy){
+        boolean win = true;
         while(this.currentHealth > 0 && enemy.getCurrentHealth() > 0){
             break;
         }
+        return win;
     }
 
     public String getCharLoc(){
