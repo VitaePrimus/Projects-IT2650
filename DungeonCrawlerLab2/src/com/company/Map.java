@@ -104,8 +104,8 @@ public class Map {
             while(flag1 || flag2 || flag3 || flag4) {
 
                 int random = rng.nextInt(4);
-                int newX = generator.getEnemy().get(i).getNewTile().getX();
-                int newY = generator.getEnemy().get(i).getNewTile().getY();
+                int newX = generator.getEnemy().get(i).getEnemyTile().getX();
+                int newY = generator.getEnemy().get(i).getEnemyTile().getY();
 
                 switch (random) {
                     case 0 -> newX = newX + 1;
