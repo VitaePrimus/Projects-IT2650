@@ -67,11 +67,9 @@ public class Generator {
         return enemy.get(index).getEnemyTile();
     }
 
-    public Tile getEnemyStartingTile(int index){
-        return enemy.get(index).getStartingTile();
-    }
+    public Tile getEnemyStartingTile(int index){ return enemy.get(index).getStartingTile(); }
 
-
+    public Tile getEnemyNewTile(int index){ return enemy.get(index).getNewTile(); }
 
     public ArrayList<Enemy> getEnemy(){
         return enemy;

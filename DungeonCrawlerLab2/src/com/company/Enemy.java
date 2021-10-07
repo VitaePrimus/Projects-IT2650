@@ -3,6 +3,7 @@ package com.company;
 public class Enemy extends Character {
     private Tile startingTile;
     private Tile enemyTile;
+    private Tile newTile;
     private int currentHealth;
 
 
@@ -11,6 +12,7 @@ public class Enemy extends Character {
         this.enemyTile = enemyTile;
         currentHealth = maxHealth;
         startingTile = enemyTile;
+        newTile = enemyTile;
     }
 
     public void attack(Hero hero){
@@ -29,8 +31,15 @@ public class Enemy extends Character {
         return startingTile;
     }
 
+    public Tile getNewTile(){
+        return newTile;
+    }
+
 
     public void setEnemyTile(int x, int y){ this.enemyTile = new Tile(x,y); }
+
+    public void setNewTile(int x, int y){ this.newTile = new Tile(x,y); }
+
 
     public void setCurrentHealth(int currentHealth) { this.currentHealth = currentHealth; }
 

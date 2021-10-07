@@ -53,6 +53,7 @@ public class Hero extends Character {
     // Starting a fight
     public void startFight(Enemy enemy){
         while(this.currentHealth > 0 && enemy.getCurrentHealth() > 0){
+            System.out.println("Fight!");
             break;
         }
     }

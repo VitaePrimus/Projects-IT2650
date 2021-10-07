@@ -95,31 +95,78 @@ public class Map {
         return event;
     }
 
-    public void moveEnemy(){
+    // This was ... something
+    public void moveEnemy(Hero hero){
         for(int i = 0; i < generator.getEnemy().size(); i++) {
             Random rng = new Random();
-            int random = rng.nextInt(4);
 
-            int constX = generator.getEnemy().get(i).getStartingTile().getX();
-            int constY = generator.getEnemy().get(i).getStartingTile().getY();
+            int constX = generator.getEnemyStartingTile(i).getX();
+            int constY = generator.getEnemyStartingTile(i).getY();
 
-            int newX = generator.getEnemy().get(i).getEnemyTile().getX();
-            int newY = generator.getEnemy().get(i).getEnemyTile().getY();
 
-            if(random == 0){
-                newX = newX + 1;
-            }
-            if(random == 1){
-                newX = newX - 1;
-            }
-            if(random == 2){
-                newY = newY + 1;
-            }
-            if(random == 3){
-                newY = newY + 1;
-            }
+            boolean flag1 = true;   // Checking for player
+            boolean flag2 = true;   // Checking if not on the wall
+            boolean flag3 = true;   // Checking if not on the other enemies position
+            boolean flag4 = true;   // Checking for map boundaries
+            boolean flag5 = true;   // Checking so that the distance is not mora than 3 from original spot
 
-            generator.getEnemy().get(i).setEnemyTile(newX, newY);
+
+            while(flag2 || flag3 || flag4 || flag5) {
+
+                int random = rng.nextInt(4);
+                int newX = generator.getEnemy().get(i).getNewTile().getX();
+                int newY = generator.getEnemy().get(i).getNewTile().getY();
+
+                switch (random) {
+                    case 0 -> newX = newX + 1;
+                    case 1 -> newX = newX - 1;
+                    case 2 -> newY = newY + 1;
+                    case 3 -> newY = newY - 1;
+                }
+
+                generator.getEnemy().get(i).setNewTile(newX, newY);
+                String newEnemyTile = generator.getEnemyNewTile(i).getLocation();
+
+                if(newEnemyTile.equals(hero.getCharTile().getLocation())){
+                    hero.startFight(generator.getEnemy().get(i));
+                    flag1 = false;
+                }
+
+                for(int x = 0; x < generator.getWall().size(); x++) {
+                    if (newEnemyTile.equals(generator.getWall().get(x).getLocation())) {
+                        flag2 = true;
+                        break;
+                    }
+                    else{
+                        flag2 = false;
+                    }
+                }
+                for(int x = 0; x < generator.getEnemy().size(); x++) {
+                    if (newEnemyTile.equals(generator.getEnemyTile(x).getLocation())) {
+                        flag3 = true;
+                        break;
+                    }
+                    else{
+                        flag3 = false;
+                    }
+                }
+
+                if(newX > 0 || newX <= 16 && newY > 0 || newY <= 16){ flag4 = false; }  // Checking for map boundaries
+                if(newX < constX + 3 && newY < constY + 3){ flag5 = false; }
+
+                if(!flag1 && !flag2 && !flag3 && !flag4 && !flag5){ break; }
+
+                switch (random) {
+                    case 0 -> newX = newX - 1;
+                    case 1 -> newX = newX + 1;
+                    case 2 -> newY = newY - 1;
+                    case 3 -> newY = newY + 1;
+                }
+
+                generator.getEnemy().get(i).setNewTile(newX, newY);
+
+            }
+            generator.getEnemy().get(i).setEnemyTile(generator.getEnemy().get(i).getNewTile().getX(),generator.getEnemy().get(i).getNewTile().getY());
         }
     }
 
