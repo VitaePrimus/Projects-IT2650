@@ -12,7 +12,6 @@ public class Enemy extends Character {
         this.enemyTile = enemyTile;
         currentHealth = maxHealth;
         startingTile = enemyTile;
-        newTile = enemyTile;
     }
 
     public void attack(Hero hero){
@@ -23,9 +22,7 @@ public class Enemy extends Character {
         return enemyTile.getLocation();
     }
 
-    public Tile getEnemyTile(){
-        return enemyTile;
-    }
+    public Tile getEnemyTile(){ return enemyTile; }
 
     public Tile getStartingTile(){
         return startingTile;

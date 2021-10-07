@@ -91,21 +91,21 @@ public class Map {
     public void moveEnemy(Hero hero){
         for(int i = 0; i < generator.getEnemy().size(); i++) {
             Random rng = new Random();
+            int random = rng.nextInt(4);
+
             String newEnemyTile;
 
             int constX = generator.getEnemyStartingTile(i).getX();
             int constY = generator.getEnemyStartingTile(i).getY();
 
-            boolean flag1;   // Checking if not on the wall
-            boolean flag2;   // Checking if not on the other enemies position
-            boolean flag3;   // Checking for map boundaries
-            boolean flag4;   // Checking so that the distance is not mora than 2 from original spot
+            boolean flag1 = false;   // Checking if not on the wall
+            boolean flag2 = false;   // Checking if not on the other enemies position
+            boolean flag3 = false;   // Checking for map boundaries
+            boolean flag4 = false;   // Checking so that the distance is not mora than 2 from original spot
 
 
-            while(true) {
-                flag1 = false; flag2 = false; flag3 = false; flag4 = false;
+            while(!flag1 && !flag2 && !flag3 && !flag4) {
 
-                int random = rng.nextInt(4);
                 int newX = generator.getEnemy().get(i).getEnemyTile().getX();
                 int newY = generator.getEnemy().get(i).getEnemyTile().getY();
 
@@ -116,7 +116,7 @@ public class Map {
                     case 3 -> newY = newY - 1;
                 }
 
-                generator.getEnemy().get(i).setNewTile(newX, newY);
+                generator.setEnemyNewTile(i, newX, newY);
                 newEnemyTile = generator.getEnemyNewTile(i).getLocation();
 
                 if(newEnemyTile.equals(hero.getCharTile().getLocation())){
@@ -136,17 +136,29 @@ public class Map {
                 flag3 = newX < 0 || newX >= 16 && newY < 0 || newY >= 16;
                 flag4 = newX > constX + 2 || newY > constY + 2;
 
-                if(!flag1 && !flag2 && !flag3 && !flag4){ break; }    // Exit loop when enemy moved
+                if(!flag1 && !flag2 && !flag3 && !flag4){
+                    //System.out.println("exit loop");
+                    break; }  // Exit loop when enemy moved
 
-                generator.getEnemy().get(i).setNewTile
-                        (generator.getEnemy().get(i).getEnemyTile().getX(),
-                         generator.getEnemy().get(i).getEnemyTile().getY());
+                if(random >= 3) {
+                    random = 0;
+                }
+                else {
+                    random = random + 1;
+                }
+
+                generator.setEnemyNewTile(
+                        i,
+                        generator.getEnemy().get(i).getEnemyTile().getX(),
+                        generator.getEnemy().get(i).getEnemyTile().getY());;
+
             }
 
             // Set the enemy tile to the one the enemy moved
-            generator.getEnemy().get(i).setEnemyTile
-                    (generator.getEnemy().get(i).getNewTile().getX(),
-                     generator.getEnemy().get(i).getNewTile().getY());
+            generator.setEnemyTile(
+                    i,
+                    generator.getEnemy().get(i).getNewTile().getX(),
+                    generator.getEnemy().get(i).getNewTile().getY());
         }
     }
 
