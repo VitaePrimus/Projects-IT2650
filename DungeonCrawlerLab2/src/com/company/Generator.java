@@ -12,6 +12,7 @@ public class Generator {
         enemy = new ArrayList<>();
     }
 
+    // Walls -- Start ------------------------------------------------------------------------
     public Tile getWallTile(int index) {
         return wall.get(index);
     }
@@ -62,7 +63,9 @@ public class Generator {
             }
         }
     }
+    // Walls -- Finish ------------------------------------------------------------------------
 
+    // Enemies -- Start ------------------------------------------------------------------------
     public Tile getEnemyTile(int index){
         return enemy.get(index).getEnemyTile();
     }
@@ -76,8 +79,6 @@ public class Generator {
     public void setEnemyTile(int index, int x, int y){
         enemy.get(index).setEnemyTile(x,y);
     }
-
-
 
     public ArrayList<Enemy> getEnemy(){
         return enemy;
@@ -122,7 +123,6 @@ public class Generator {
     public void removeEnemy(int index){
         this.enemy.remove(index);
     }
-
-
+    // Enemies -- Finish ------------------------------------------------------------------------
 
 }

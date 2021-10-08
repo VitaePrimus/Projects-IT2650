@@ -23,7 +23,7 @@ public class Main {
         String enemyFight = "***********%n" +
                 "An enemy has found you.";
 
-
+        // Main game loop ------------------------------------------------------------------------------
         while(true){
             currentPosition = p1.getCharTile();     // Remembers position before moving
 
@@ -68,10 +68,11 @@ public class Main {
             currentPosition = newPosition;
 
             System.out.println("Enemies left: " + map.generator.getEnemy().size());
-        }
+        } // End of main game loop ----------------------------------------------------------------------------
 
     }
 
+    // Check for events -----------------------------------------------------------------------------
     static void eventManager(Hero hero, Tile currentTile, Tile newTile){
         System.out.println();
         if(map.IS_EDGE(hero, currentTile)){

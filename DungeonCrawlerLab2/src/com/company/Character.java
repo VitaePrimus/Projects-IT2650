@@ -4,13 +4,14 @@ abstract class Character {
     private int maxHealth;
     private int defence;
     private int attack;
-    //Map map = new Map();
 
     public Character(int maxHealth , int defence, int attack){
         this.maxHealth = maxHealth;
         this.defence = defence;
         this.attack = attack;
     }
+
+
 
     public int getMaxHealth() {
         return maxHealth;

@@ -6,7 +6,6 @@ public class Map {
     Generator generator;
     Tile winningTile;
 
-
     public Map(){
         generator = new Generator();
         generator.generateWalls();
@@ -28,6 +27,7 @@ public class Map {
         return IS_EDGE;
     }
 
+    // Check for wall
     public boolean IS_WALL(Hero hero, Tile currentTile){
         boolean IS_WALL = true;
         for(int i = 0; i < generator.getWall().size(); i++){
