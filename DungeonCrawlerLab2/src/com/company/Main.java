@@ -8,7 +8,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        Hero p1 = new Hero(100, 5, 50);
+        Hero p1 = new Hero(100, 5, 10);
 
         Tile currentPosition = p1.getCharTile();
         Tile newPosition = p1.getCharTile();
@@ -18,27 +18,29 @@ public class Main {
         // Couple strings for the interface:
         String startFight = "***********%n" +
                 "You are facing a wandering goblin.%n";
-        String fightingChoices = "Attack - A Drink potion - P Escape - E";
+        String fightingChoices = "Attack - A Drink potion - P Escape - E: ";
 
         String enemyFight = "***********%n" +
                 "An enemy has found you.";
 
         // Main game loop ------------------------------------------------------------------------------
         while(true){
-            currentPosition = p1.getCharTile();     // Remembers position before moving
-
             // Encounter with enemy on their move
             if(map.enemyDetected(p1)){
                 System.out.printf(enemyFight);
                 System.out.printf(fightingChoices);
 
                 choice = scanner.nextLine();
-                while(!p1.startFight(map.getFightOpponent(map.enemyIndex(p1)), choice, map.enemyIndex(p1))){
+                while(p1.startFight(map.getFightOpponent(map.enemyIndex(p1)), choice, currentPosition)){
                     choice = scanner.nextLine();
+                    System.out.println("Your health: " + p1.getCurrentHealth());
+                    System.out.println("Enemy health: " + map.generator.getEnemy().get(map.enemyIndex(p1)).getCurrentHealth());
                 }
                 System.out.printf("You won!%n");
                 map.removeEnemy(map.enemyIndex(p1));
             }
+
+            currentPosition = p1.getCharTile();     // Remembers position before moving
 
             System.out.println();
             System.out.println("Where to go?");
@@ -53,8 +55,10 @@ public class Main {
                 System.out.printf(fightingChoices);
 
                 choice = scanner.nextLine();
-                while(!p1.startFight(map.getFightOpponent(map.enemyIndex(p1)), choice, map.enemyIndex(p1))){
+                while(p1.startFight(map.getFightOpponent(map.enemyIndex(p1)), choice, currentPosition)){
                     choice = scanner.nextLine();
+                    System.out.println("Your health: " + p1.getCurrentHealth());
+                    System.out.println("Enemy health: " + map.generator.getEnemy().get(map.enemyIndex(p1)).getCurrentHealth());
                 }
                 System.out.printf("You won!%n");
                 map.removeEnemy(map.enemyIndex(p1));
@@ -65,7 +69,7 @@ public class Main {
             eventManager(p1, currentPosition, newPosition);     // Check for event
 
             System.out.printf("Your location is: %s.%n", p1.getCharTile());
-            currentPosition = newPosition;
+
 
             System.out.println("Enemies left: " + map.generator.getEnemy().size());
         } // End of main game loop ----------------------------------------------------------------------------

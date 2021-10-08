@@ -51,14 +51,20 @@ public class Hero extends Character {
 
 
     // Starting a fight
-    public boolean startFight(Enemy enemy, String choice, int index){
-        Generator generator = new Generator();
+    public boolean startFight(Enemy enemy, String choice, Tile oldTile){
         boolean win = false;
 
-        while(this.currentHealth > 0 && enemy.getCurrentHealth() > 0){
-            break;
+        if(choice.equalsIgnoreCase("a")){
+            enemy.setCurrentHealth(enemy.getCurrentHealth() - ((getAttack() * 10) / enemy.getDefence()));
+            setCurrentHealth(getCurrentHealth() - ((enemy.getAttack() * 10) / this.getDefence()));
         }
-        enemy.setCurrentHealth(0);
+        if(choice.equalsIgnoreCase("p")){
+
+        }
+        if(choice.equalsIgnoreCase("e")){
+            setCurrentHealth(getCurrentHealth() - ((enemy.getAttack() * 5) / this.getDefence()));
+            setCharTile(oldTile);
+        }
 
         if(enemy.getCurrentHealth() <= 0){
             win = true;
