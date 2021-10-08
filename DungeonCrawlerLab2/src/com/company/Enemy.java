@@ -14,8 +14,8 @@ public class Enemy extends Character {
         startingTile = enemyTile;
     }
 
-    public void attack(Hero hero){
-        hero.setCurrentHealth(hero.getCurrentHealth() - this.getAttack());
+    public void attack(Hero hero, int index){
+
     }
 
     public String getEnemyLoc(){

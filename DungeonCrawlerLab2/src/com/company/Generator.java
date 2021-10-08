@@ -114,4 +114,15 @@ public class Generator {
         }
 
     }
+
+    public void removeEnemy(Enemy enemy){
+        this.enemy.remove(enemy);
+    }
+
+    public void removeEnemy(int index){
+        this.enemy.remove(index);
+    }
+
+
+
 }
