@@ -65,8 +65,8 @@ public class Main {
 
                     System.out.printf(fightingChoices);
                 }
-                System.out.printf("You won!%n");
                 if(p1.getCurrentHealth() <= 0){
+                    System.out.println("You lost");
                     break;
                 }
 
@@ -76,6 +76,7 @@ public class Main {
                     System.out.println("You received a potion.");
                 }
 
+                System.out.printf("You won!%n");
             }
             if(p1.getCurrentHealth() <= 0){
                 System.out.println("You lost");
@@ -90,11 +91,11 @@ public class Main {
 
             // Resting -- Start ---------------------------------------------------------------------------------------------------
             if(choice.equalsIgnoreCase("rest")){
-                if(p1.getCurrentHealth() >= 100){
+                if(p1.getCurrentHealth() >= p1.getMaxHealth()){
                     System.out.println("You have maximum health: " + p1.getCurrentHealth() + ".");
                 }
-                else if(p1.getCurrentHealth() >= 95){
-                    p1.setCurrentHealth(100);
+                else if(p1.getCurrentHealth() >= p1.getMaxHealth() - 5){
+                    p1.setCurrentHealth(p1.getMaxHealth());
                     System.out.println("You healed up to the maximum health: " + p1.getCurrentHealth() + ".");
                 }
                 else{
@@ -109,6 +110,8 @@ public class Main {
 
             p1.move(choice);                        // Move character
             newPosition = p1.getCharTile();         // Position after moving
+
+            map.drinkPotion(p1);    // Increases attack or defence if player is on an appropriate tile
             // Winning the game! *****************************************************************************
             if(map.win(p1.getCharTile())){
                 System.out.println("--- ♪♪♪ Congratulations, You Won the Game!!! ♪♪♪ ---");
@@ -152,6 +155,7 @@ public class Main {
                     System.out.printf(fightingChoices);
                 }
                 if(p1.getCurrentHealth() <= 0){
+                    System.out.println("You lost");
                     break;
                 }
 
@@ -170,6 +174,13 @@ public class Main {
 
 
             map.moveEnemy(p1);
+
+            // Increase the health of all enemies by 20 every 20 turns
+            if(turn >= 20 && turn % 20 == 0){
+                map.lvlUpEnemies();
+                System.out.println("Enemies have become stronger.");
+            }
+
 
             eventManager(p1, currentPosition, newPosition);     // Check for event
 

@@ -10,6 +10,8 @@ public class Map {
         generator = new Generator();
         generator.generateWalls();
         generator.generateEnemies();
+        generator.generatePowerPotions();
+        generator.generateDefencePotions();
 
         winningTile = new Tile(11,12);
     }
@@ -79,6 +81,33 @@ public class Map {
         return tile.getLocation().equals(winningTile.getLocation());
     }
 
+
+    public void lvlUpEnemies(){
+        for(int i = 0; i < generator.getEnemy().size(); i++){
+            generator.getEnemy().get(i).setCurrentHealth(
+                    generator.getEnemy().get(i).getCurrentHealth() + 20);
+        }
+
+    }
+
+    // This is for power and defence potions
+    public void drinkPotion(Hero hero){
+        for(int i = 0; i < generator.getDefencePotion().size(); i++) {
+            if(hero.getCharTile().getLocation().equals(generator.getDefencePotionTile(i).getLocation())){
+                hero.setDefence(hero.getDefence() + 2);
+                System.out.println("You found a defence potion. Your defence increased by 2, and is now " + hero.getDefence() + ".");
+                generator.getDefencePotion().remove(i);     // Removes potion after "drinking"
+            }
+        }
+        for(int i = 0; i < generator.getPowerPotiom().size(); i++) {
+            if(hero.getCharTile().getLocation().equals(generator.getPowerPotionTile(i).getLocation())){
+                hero.setAttack(hero.getAttack() + 2);
+                System.out.println("You found a power potion. Your attack increased by 2, and is now " + hero.getAttack() + ".");
+                generator.getPowerPotiom().remove(i);       // Removes potion after "drinking"
+            }
+        }
+
+    }
 
     // This was ... something
     public void moveEnemy(Hero hero){

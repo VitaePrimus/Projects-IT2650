@@ -4,12 +4,16 @@ import java.util.ArrayList;
 
 public class Generator {
     private ArrayList<Tile> wall;
-    private ArrayList<Tile> potion;
     private ArrayList<Enemy> enemy;
+    private ArrayList<Tile> powerPotion;
+    private ArrayList<Tile> defencePotion;
+
 
     public Generator(){
         wall = new ArrayList<>();
         enemy = new ArrayList<>();
+        powerPotion = new ArrayList<>();
+        defencePotion = new ArrayList<>();
     }
 
     // Walls -- Start ------------------------------------------------------------------------
@@ -124,5 +128,54 @@ public class Generator {
         this.enemy.remove(index);
     }
     // Enemies -- Finish ------------------------------------------------------------------------
+
+    public void generatePowerPotions(){
+        int[] xCor = {7,0,15,4,6,-1};
+        int[] yCor = {0,6,6,10,15,-1};
+
+        int count = 0;
+        for(int y = 0; y < 16; y++){
+            for(int x = 0; x < 16; x++){
+                if(x == xCor[count] && y == yCor[count]){
+                    powerPotion.add(new Tile(x,y));
+                    count++;
+                }
+            }
+        }
+
+    }
+    public Tile getPowerPotionTile(int index) {
+        return powerPotion.get(index);
+    }
+    public ArrayList<Tile> getPowerPotiom(){
+        return powerPotion;
+    }
+
+
+
+    public void generateDefencePotions(){
+        int[] xCor = {11,14,5,15,0,-1};
+        int[] yCor = {0,1,3,13,14,-1};
+
+        int count = 0;
+        for(int y = 0; y < 16; y++){
+            for(int x = 0; x < 16; x++){
+                if(x == xCor[count] && y == yCor[count]){
+                    defencePotion.add(new Tile(x,y));
+                    count++;
+                }
+            }
+        }
+
+    }
+    public Tile getDefencePotionTile(int index) {
+        return defencePotion.get(index);
+    }
+    public ArrayList<Tile> getDefencePotion(){
+        return defencePotion;
+    }
+
+
+
 
 }
