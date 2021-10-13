@@ -95,6 +95,7 @@ public class Map {
         for(int i = 0; i < generator.getDefencePotion().size(); i++) {
             if(hero.getCharTile().getLocation().equals(generator.getDefencePotionTile(i).getLocation())){
                 hero.setDefence(hero.getDefence() + 2);
+                System.out.println("----------------------------------------------------------");
                 System.out.println("You found a defence potion. Your defence increased by 2, and is now " + hero.getDefence() + ".");
                 generator.getDefencePotion().remove(i);     // Removes potion after "drinking"
             }
@@ -102,6 +103,7 @@ public class Map {
         for(int i = 0; i < generator.getPowerPotiom().size(); i++) {
             if(hero.getCharTile().getLocation().equals(generator.getPowerPotionTile(i).getLocation())){
                 hero.setAttack(hero.getAttack() + 2);
+                System.out.println("----------------------------------------------------------");
                 System.out.println("You found a power potion. Your attack increased by 2, and is now " + hero.getAttack() + ".");
                 generator.getPowerPotiom().remove(i);       // Removes potion after "drinking"
             }
