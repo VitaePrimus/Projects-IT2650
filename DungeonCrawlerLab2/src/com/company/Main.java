@@ -1,5 +1,7 @@
+/*Created by Vitaliy Vuychych*/
 package com.company;
 
+import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
@@ -14,6 +16,9 @@ public class Main {
         Tile newPosition = p1.getCharTile();
 
         String choice;
+        int turn = 0;
+
+        Random rng = new Random();
 
         // Couple strings for the interface:
         String startFight = "***********%n" +
@@ -25,44 +30,144 @@ public class Main {
 
         // Main game loop ------------------------------------------------------------------------------
         while(true){
-            // Encounter with enemy on their move
+            currentPosition = p1.getCharTile();     // Remembers position before moving
+
             if(map.enemyDetected(p1)){
+                Enemy enemy = map.getFightOpponent(map.enemyIndex(p1));
                 System.out.printf(enemyFight);
                 System.out.printf(fightingChoices);
 
-                choice = scanner.nextLine();
-                while(p1.startFight(map.getFightOpponent(map.enemyIndex(p1)), choice, currentPosition)){
+                while(enemy.getCurrentHealth() > 0) {
                     choice = scanner.nextLine();
+                    if (choice.equalsIgnoreCase("a")) {
+                        enemy.attack(p1);    // Enemy attacking
+                        p1.attack(enemy);    // Hero attacking
+                    }
+                    if(choice.equalsIgnoreCase("e")){
+                        System.out.println("You can't escape, you were ambushed.");
+                    }
+                    if(choice.equalsIgnoreCase("p")){
+                        System.out.println(p1.drinkPotion());
+                    }
+
+                    if(p1.getCurrentHealth() <= 0){
+                        break;
+                    }
+                    if(enemy.getCurrentHealth() <= 0){                                  // Exits loop after enemy is defeated
+                        System.out.println("Your health: " + p1.getCurrentHealth());
+                        map.removeEnemy(map.enemyIndex(p1));
+                        break;
+                    }
+
                     System.out.println("Your health: " + p1.getCurrentHealth());
-                    System.out.println("Enemy health: " + map.generator.getEnemy().get(map.enemyIndex(p1)).getCurrentHealth());
+                    System.out.println("Enemy health: " + enemy.getCurrentHealth());
+
+
+                    System.out.printf(fightingChoices);
                 }
                 System.out.printf("You won!%n");
-                map.removeEnemy(map.enemyIndex(p1));
+                if(p1.getCurrentHealth() <= 0){
+                    break;
+                }
+
+                int random = rng.nextInt(5);
+                if(random == 0){
+                    p1.setPotions(p1.getPotions() + 1);
+                    System.out.println("You received a potion.");
+                }
+
+            }
+            if(p1.getCurrentHealth() <= 0){
+                System.out.println("You lost");
+                break;
             }
 
-            currentPosition = p1.getCharTile();     // Remembers position before moving
 
             System.out.println();
-            System.out.println("Where to go?");
+            System.out.println("Where to go?   |   type 'rest' to view your health, heal and skip turn.");
             System.out.print("North(W), South(S), West(A), East(D): ");
             choice = scanner.nextLine();
+
+            // Resting -- Start ---------------------------------------------------------------------------------------------------
+            if(choice.equalsIgnoreCase("rest")){
+                if(p1.getCurrentHealth() >= 100){
+                    System.out.println("You have maximum health: " + p1.getCurrentHealth() + ".");
+                }
+                else if(p1.getCurrentHealth() >= 95){
+                    p1.setCurrentHealth(100);
+                    System.out.println("You healed up to the maximum health: " + p1.getCurrentHealth() + ".");
+                }
+                else{
+                    p1.setCurrentHealth(p1.getCurrentHealth() + 5);
+                    System.out.println("You healed up by 5. Your health is: " + p1.getCurrentHealth() + ".");
+
+                }
+                System.out.println("You have " + p1.getPotions() + " potions.");
+                System.out.println("It is turn " + turn + ".");
+            }
+            // Resting -- Finish ---------------------------------------------------------------------------------------------------
+
             p1.move(choice);                        // Move character
             newPosition = p1.getCharTile();         // Position after moving
+            // Winning the game! *****************************************************************************
+            if(map.win(p1.getCharTile())){
+                System.out.println("--- ♪♪♪ Congratulations, You Won the Game!!! ♪♪♪ ---");
+                break;
+            }
+            // ************************************************************************************************
 
-            // Encounter with enemy on player's move
             if(map.enemyDetected(p1)){
+                Enemy enemy = map.getFightOpponent(map.enemyIndex(p1));
                 System.out.printf(startFight);
                 System.out.printf(fightingChoices);
 
-                choice = scanner.nextLine();
-                while(p1.startFight(map.getFightOpponent(map.enemyIndex(p1)), choice, currentPosition)){
+                while(enemy.getCurrentHealth() > 0) {
                     choice = scanner.nextLine();
+                    if (choice.equalsIgnoreCase("a")) {
+
+                        p1.attack(enemy);    // Hero attacking
+                        enemy.attack(p1);    // Enemy attacking
+                    }
+                    if(choice.equalsIgnoreCase("e")){
+                        p1.escape(enemy, currentPosition);
+                        break;  // Exit loop if escape
+                    }
+                    if(choice.equalsIgnoreCase("p")){
+                        System.out.println(p1.drinkPotion());
+                    }
+
+                    if(p1.getCurrentHealth() <= 0){
+                        break;
+                    }
+                    if(enemy.getCurrentHealth() <= 0){                                  // Exits loop after enemy is defeated
+                        System.out.println("Your health: " + p1.getCurrentHealth());
+                        map.removeEnemy(map.enemyIndex(p1));
+                        break;
+                    }
+
                     System.out.println("Your health: " + p1.getCurrentHealth());
-                    System.out.println("Enemy health: " + map.generator.getEnemy().get(map.enemyIndex(p1)).getCurrentHealth());
+                    System.out.println("Enemy health: " + enemy.getCurrentHealth());
+
+
+                    System.out.printf(fightingChoices);
+                }
+                if(p1.getCurrentHealth() <= 0){
+                    break;
+                }
+
+
+                int random = rng.nextInt(5);
+                if(random == 0){
+                    p1.setPotions(p1.getPotions() + 1);
+                    System.out.println("You received a potion.");
                 }
                 System.out.printf("You won!%n");
-                map.removeEnemy(map.enemyIndex(p1));
             }
+            if(p1.getCurrentHealth() <= 0){
+                System.out.println("You lost");
+                break;
+            }
+
 
             map.moveEnemy(p1);
 
@@ -72,6 +177,8 @@ public class Main {
 
 
             System.out.println("Enemies left: " + map.generator.getEnemy().size());
+
+            turn++;
         } // End of main game loop ----------------------------------------------------------------------------
 
     }

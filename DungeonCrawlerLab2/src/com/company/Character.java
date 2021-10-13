@@ -11,6 +11,9 @@ abstract class Character {
         this.attack = attack;
     }
 
+    abstract void attack(Character character);
+    abstract void setCurrentHealth(int health);
+    abstract int getCurrentHealth();
 
 
     public int getMaxHealth() {

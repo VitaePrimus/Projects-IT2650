@@ -108,7 +108,7 @@ public class Generator {
         for(int y = 0; y < 16; y++){
             for(int x = 0; x < 16; x++){
                 if(x == xCor[count] && y == yCor[count]){
-                    enemy.add(new Enemy(100, 5, 8, new Tile(x,y)));
+                    enemy.add(new Enemy(100, 5, 5, new Tile(x,y)));
                     count++;
                 }
             }

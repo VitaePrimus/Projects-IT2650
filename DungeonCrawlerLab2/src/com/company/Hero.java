@@ -1,5 +1,7 @@
 package com.company;
 
+import java.util.Random;
+
 public class Hero extends Character {
     private int potions;
     private Tile charTile;
@@ -8,7 +10,7 @@ public class Hero extends Character {
 
     public Hero(int maxHealth, int defence, int attack) {
         super(maxHealth, defence, attack);
-        potions = 1;
+        potions = 3;
         charTile = new Tile(0,0);
         currentHealth = maxHealth;
     }
@@ -17,10 +19,10 @@ public class Hero extends Character {
     public String drinkPotion(){
         String message;
 
-        if(potions > 0 && getMaxHealth() < 100){
-            setMaxHealth(getMaxHealth() + 20);
-            if(getMaxHealth() > 100){
-                setMaxHealth(100);
+        if(potions > 0 && getCurrentHealth() < 100){
+            setCurrentHealth(getCurrentHealth() + 20);
+            if(getCurrentHealth() > 100){
+                setCurrentHealth(100);
             }
             potions = potions - 1;
             message = "You were healed by a potion";
@@ -49,29 +51,50 @@ public class Hero extends Character {
         }
     }
 
+    public void attack(Character enemy){
+        Random rng = new Random();
+        int random = rng.nextInt(5);
 
-    // Starting a fight
-    public boolean startFight(Enemy enemy, String choice, Tile oldTile){
-        boolean win = false;
+        int multiplier = 10;
 
-        if(choice.equalsIgnoreCase("a")){
-            enemy.setCurrentHealth(enemy.getCurrentHealth() - ((getAttack() * 10) / enemy.getDefence()));
-            setCurrentHealth(getCurrentHealth() - ((enemy.getAttack() * 10) / this.getDefence()));
+        switch (random) {
+            case 0 -> multiplier = 8;
+            case 1 -> multiplier = 9;
+            case 2 -> multiplier = 10;
+            case 3 -> multiplier = 11;
+            case 4 -> multiplier = 12;
         }
-        if(choice.equalsIgnoreCase("p")){
 
-        }
-        if(choice.equalsIgnoreCase("e")){
+        enemy.setCurrentHealth(enemy.getCurrentHealth() - ((getAttack() * multiplier) / enemy.getDefence()));
+    }
+
+    public void escape(Enemy enemy, Tile oldTile){
             setCurrentHealth(getCurrentHealth() - ((enemy.getAttack() * 5) / this.getDefence()));
             setCharTile(oldTile);
-        }
-
-        if(enemy.getCurrentHealth() <= 0){
-            win = true;
-        }
-
-        return win;
     }
+
+    // Starting a fight
+//    public boolean startFight(Enemy enemy, String choice, Tile oldTile){
+//        boolean win = false;
+//
+//        if(choice.equalsIgnoreCase("a")){
+//            enemy.setCurrentHealth(enemy.getCurrentHealth() - ((getAttack() * 10) / enemy.getDefence()));
+//            setCurrentHealth(getCurrentHealth() - ((enemy.getAttack() * 10) / this.getDefence()));
+//        }
+//        if(choice.equalsIgnoreCase("p")){
+//
+//        }
+//        if(choice.equalsIgnoreCase("e")){
+//            setCurrentHealth(getCurrentHealth() - ((enemy.getAttack() * 5) / this.getDefence()));
+//            setCharTile(oldTile);
+//        }
+//
+//        if(enemy.getCurrentHealth() <= 0){
+//            win = true;
+//        }
+//
+//        return win;
+//    }
 
     public String getCharLoc(){
         return charTile.getLocation();
@@ -81,9 +104,9 @@ public class Hero extends Character {
 
     public void setCharTile(Tile charTile) { this.charTile = charTile; }
 
-    public void setPotions(int num){
-        potions = potions + num;
-    }
+    public void setPotions(int num){ potions = num; }
+
+    public int getPotions() { return potions; }
 
     public void setCurrentHealth(int currentHealth) { this.currentHealth = currentHealth; }
 

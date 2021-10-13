@@ -1,5 +1,7 @@
 package com.company;
 
+import java.util.Random;
+
 public class Enemy extends Character {
     private Tile startingTile;
     private Tile enemyTile;
@@ -14,9 +16,23 @@ public class Enemy extends Character {
         startingTile = enemyTile;
     }
 
-    public void attack(Hero hero, int index){
+    void attack(Character hero){
+        Random rng = new Random();
+        int random = rng.nextInt(5);
 
+        int multiplier = 10;
+
+        switch (random) {
+            case 0 -> multiplier = 8;
+            case 1 -> multiplier = 9;
+            case 2 -> multiplier = 10;
+            case 3 -> multiplier = 11;
+            case 4 -> multiplier = 12;
+        }
+
+        hero.setCurrentHealth(hero.getCurrentHealth() - ((getAttack() * multiplier) / hero.getDefence()));
     }
+
 
     public String getEnemyLoc(){
         return enemyTile.getLocation();
