@@ -6,6 +6,7 @@ public class Map {
     Generator generator;
     Tile winningTile;
 
+
     public Map(){
         generator = new Generator();
         generator.generateWalls();
@@ -77,17 +78,16 @@ public class Map {
     // Enemy encounter -- Finish ----------------------------------------------------------------------------------------------- //
 
 
+    // Victory condition
     public boolean win(Tile tile){
         return tile.getLocation().equals(winningTile.getLocation());
     }
-
 
     public void lvlUpEnemies(){
         for(int i = 0; i < generator.getEnemy().size(); i++){
             generator.getEnemy().get(i).setCurrentHealth(
                     generator.getEnemy().get(i).getCurrentHealth() + 20);
         }
-
     }
 
     // This is for power and defence potions
@@ -108,7 +108,6 @@ public class Map {
                 generator.getPowerPotiom().remove(i);       // Removes potion after "drinking"
             }
         }
-
     }
 
     // This was ... something
@@ -126,7 +125,6 @@ public class Map {
             boolean flag2 = false;   // Checking if not on the other enemies position
             boolean flag3 = false;   // Checking for map boundaries
             boolean flag4 = false;   // Checking so that the distance is not mora than 2 from original spot
-
 
             while(!flag1 && !flag2 && !flag3 && !flag4) {
 
@@ -175,7 +173,6 @@ public class Map {
                         i,
                         generator.getEnemy().get(i).getEnemyTile().getX(),
                         generator.getEnemy().get(i).getEnemyTile().getY());
-
             }
 
             // Set the enemy tile to the one the enemy moved to

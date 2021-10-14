@@ -30,7 +30,6 @@ public class Hero extends Character {
         else{
             message = "You can't drink a potion now";
         }
-
         return message;
     }
 
@@ -64,7 +63,6 @@ public class Hero extends Character {
             case 3 -> multiplier = 11;
             case 4 -> multiplier = 12;
         }
-
         enemy.setCurrentHealth(enemy.getCurrentHealth() - ((getAttack() * multiplier) / enemy.getDefence()));
     }
 

@@ -16,6 +16,7 @@ public class Enemy extends Character {
         startingTile = enemyTile;
     }
 
+
     void attack(Character hero){
         Random rng = new Random();
         int random = rng.nextInt(5);
@@ -29,7 +30,6 @@ public class Enemy extends Character {
             case 3 -> multiplier = 11;
             case 4 -> multiplier = 12;
         }
-
         hero.setCurrentHealth(hero.getCurrentHealth() - ((getAttack() * multiplier) / hero.getDefence()));
     }
 
@@ -48,11 +48,9 @@ public class Enemy extends Character {
         return newTile;
     }
 
-
     public void setEnemyTile(int x, int y){ this.enemyTile = new Tile(x,y); }
 
     public void setNewTile(int x, int y){ this.newTile = new Tile(x,y); }
-
 
     public void setCurrentHealth(int currentHealth) { this.currentHealth = currentHealth; }
 

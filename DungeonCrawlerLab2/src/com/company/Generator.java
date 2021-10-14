@@ -16,6 +16,7 @@ public class Generator {
         defencePotion = new ArrayList<>();
     }
 
+
     // Walls -- Start ------------------------------------------------------------------------
     public Tile getWallTile(int index) {
         return wall.get(index);
@@ -117,7 +118,6 @@ public class Generator {
                 }
             }
         }
-
     }
 
     public void removeEnemy(Enemy enemy){
@@ -142,7 +142,6 @@ public class Generator {
                 }
             }
         }
-
     }
     public Tile getPowerPotionTile(int index) {
         return powerPotion.get(index);
@@ -166,7 +165,6 @@ public class Generator {
                 }
             }
         }
-
     }
     public Tile getDefencePotionTile(int index) {
         return defencePotion.get(index);
@@ -174,8 +172,4 @@ public class Generator {
     public ArrayList<Tile> getDefencePotion(){
         return defencePotion;
     }
-
-
-
-
 }

@@ -23,10 +23,13 @@ public class Main {
         // Couple strings for the interface:
         String startFight = "***********%n" +
                 "You are facing a wandering goblin.%n";
+        String enemyFight = "***********%n" +
+                "An enemy has found you.%n";
         String fightingChoices = "Attack - A Drink potion - P Escape - E: ";
 
-        String enemyFight = "***********%n" +
-                "An enemy has found you.";
+        System.out.println("________________________________________________");
+        System.out.println("You are lost in a dungeon. Try to find an exit.");
+        System.out.println("________________________________________________");
 
         // Main game loop ------------------------------------------------------------------------------
         while(true){
@@ -83,7 +86,6 @@ public class Main {
                 break;
             }
 
-
             System.out.println();
             System.out.println("Where to go?   |   type 'rest' to view your health, heal and skip turn.");
             System.out.print("North(W), South(S), West(A), East(D): ");
@@ -112,6 +114,7 @@ public class Main {
             newPosition = p1.getCharTile();         // Position after moving
 
             map.drinkPotion(p1);    // Increases attack or defence if player is on an appropriate tile
+
             // Winning the game! *****************************************************************************
             if(map.win(p1.getCharTile())){
                 System.out.println("--- ♪♪♪ Congratulations, You Won the Game!!! ♪♪♪ ---");
@@ -151,14 +154,12 @@ public class Main {
                     System.out.println("Your health: " + p1.getCurrentHealth());
                     System.out.println("Enemy health: " + enemy.getCurrentHealth());
 
-
                     System.out.printf(fightingChoices);
                 }
                 if(p1.getCurrentHealth() <= 0){
                     System.out.println("You lost");
                     break;
                 }
-
 
                 int random = rng.nextInt(5);
                 if(random == 0){
@@ -172,7 +173,6 @@ public class Main {
                 break;
             }
 
-
             map.moveEnemy(p1);
 
             // Increase the health of all enemies by 20 every 20 turns
@@ -181,17 +181,14 @@ public class Main {
                 System.out.println("Enemies have become stronger.");
             }
 
-
             eventManager(p1, currentPosition, newPosition);     // Check for event
 
             System.out.printf("Your location is: %s.%n", p1.getCharTile());
-
 
             System.out.println("Enemies left: " + map.generator.getEnemy().size());
 
             turn++;
         } // End of main game loop ----------------------------------------------------------------------------
-
     }
 
     // Check for events -----------------------------------------------------------------------------
@@ -206,6 +203,5 @@ public class Main {
         if(map.enemyDetected(hero)){
             System.out.printf("%nYou have encountered an enemy.%n");
         }
-
     }
 }
