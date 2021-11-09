@@ -143,7 +143,6 @@ public class Map {
 
                 if(newEnemyTile.equals(hero.getCharTile().getLocation())){
                     System.out.println("Enemy found you.");
-                    break;
                 }
 
                 for(int x = 0; x < generator.getWall().size(); x++) {
@@ -158,9 +157,7 @@ public class Map {
                 flag3 = newX < 0 || newX >= 16 && newY < 0 || newY >= 16;
                 flag4 = newX > constX + 2 || newY > constY + 2;
 
-                if(!flag1 && !flag2 && !flag3 && !flag4){
-                    //System.out.println("exit loop");
-                    break; }  // Exit loop when enemy moved
+                if(!flag1 && !flag2 && !flag3 && !flag4){ break; }  // Exit loop when enemy moved
 
                 if(random >= 3) {
                     random = 0;
