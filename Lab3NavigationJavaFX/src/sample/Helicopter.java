@@ -51,8 +51,42 @@ public class Helicopter {
         return result;
     }
 
+    public boolean fly(Location newLocation){
+        double distanceX;
+        double distanceY;
+        double consumption;
+        double distance;
+        boolean result;
+
+        distanceX = newLocation.getLocX() - location.getLocX();
+        distanceY = newLocation.getLocY() - location.getLocY();
+
+        // Calculate distance
+        distance = Math.sqrt((distanceX * distanceX) + (distanceY * distanceY));
+
+        // Fuel consumption
+        consumption = distance / mpg;
+        currentFuel = currentFuel - consumption;
+
+        // Set new location if possible
+        if(newLocation == location){
+            result = false;
+        }
+        else if(currentFuel >= 0){
+            location = newLocation;
+            result = true;
+        }
+        else{
+            result = false;
+            currentFuel = currentFuel + consumption;
+            consumption = 0;
+        }
+
+        return result;
+    }
+
     // Refuel the helicopter
-    public void Refuel(){
+    public void refuel(){
         if(location.getFuel()) {
             currentFuel = this.maxFuel;
             System.out.println("Refueled.");
@@ -63,7 +97,7 @@ public class Helicopter {
         }
     }
 
-    // Some getters
+    // Some getter
     public String Print(){
         return location.getName() + " X cor: " + location.getLocX() + "Y cor: " + location.getLocY();
     }
@@ -73,6 +107,24 @@ public class Helicopter {
     }
 
     public String getLocation() { return location.getName(); }
+
+    public Location getLocationClass() { return location; }
+
+    public void setMaxFuel(double maxFuel) {
+        this.maxFuel = maxFuel;
+    }
+
+    public void setCurrentFuel(double currentFuel) {
+        this.currentFuel = currentFuel;
+    }
+
+    public double getMaxFuel() {
+        return maxFuel;
+    }
+
+    public void setMpg(double mpg) {
+        this.mpg = mpg;
+    }
 }
 
 

@@ -28,9 +28,9 @@ public class Location {
         return locY;
     }
 
-    //    @Override
-//    public String toString(){
-//        return name;
-//    }
+    @Override
+    public String toString(){
+        return name + " | Fuel: " + getFuel();
+    }
 
 }
