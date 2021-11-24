@@ -1,0 +1,64 @@
+.root
+{
+    -fx-background-color: LightGoldenRodYellow;
+    -fx-background-image: url("../images/background.jpg");
+}
+
+.color1
+{
+    -fx-background-color: MediumPurple;
+}
+
+.color2
+{
+    -fx-background-color: MediumSpringGreen;
+}
+
+.button
+{
+    -fx-border-color: Indigo;
+    -fx-border-style: solid;
+    -fx-border-width: 2;
+}
+
+.button:hover
+{
+    -fx-background-color: LightGoldenRodYellow;
+}
+
+.bbStyle
+{
+    -fx-background-color: Fuchsia;
+    -fx-border-color: Indigo;
+    -fx-border-style: solid;
+    -fx-border-width: 2;
+}
+
+.bReset
+{
+    -fx-background-color: Aqua;
+    -fx-border-color: Indigo;
+    -fx-border-style: solid;
+    -fx-border-width: 4;
+    -fx-border-radius: 30px;
+    -fx-background-radius: 30px;
+    -fx-font-size: 18px;
+    -fx-text-fill: DarkGoldenRod;
+}
+
+.bReset:hover
+{
+    -fx-background-color: DarkGoldenRod;
+    -fx-text-fill: Aqua;
+}
+
+.bReset:pressed
+{
+    -fx-background-color: Indigo;
+}
+
+.lTitle
+{
+    -fx-font-size: 48px;
+    -fx-text-fill: Indigo;
+}

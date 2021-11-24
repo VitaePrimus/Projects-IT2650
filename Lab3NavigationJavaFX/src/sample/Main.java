@@ -224,9 +224,9 @@ public class Main extends Application {
         AnchorPane.setLeftAnchor(bConfirmLocation, 160.0);
         AnchorPane.setTopAnchor(bConfirmLocation,220.0);
 
-        root.getChildren().addAll(lLocation, bFly, location, bRefuel, lCurrentFuel, bAddLocation, bRemoveLocation);
-        pCreateHelicopter.getChildren().addAll(tMpg,tMaxFuel,createHelicopter, lMpg,lMaxFuel,lCreate);
-        pAddLocation.getChildren().addAll(lName, lXcor, lYcor, lAddLocation, tName, tXcor, tYcor, bConfirmLocation, cFuel, lFuel);
+        root.getChildren().addAll(lLocation, location, bFly, bRefuel, lCurrentFuel, bAddLocation, bRemoveLocation);
+        pCreateHelicopter.getChildren().addAll(tMaxFuel,tMpg,createHelicopter, lMpg,lMaxFuel,lCreate);
+        pAddLocation.getChildren().addAll(lName, lXcor, lYcor, lAddLocation, tName, tXcor, tYcor, cFuel, lFuel, bConfirmLocation);
     }
 
 
