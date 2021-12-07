@@ -9,18 +9,20 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import java.io.*;
+
 public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception{
         // -- Setting the stage --
         Location cleveland = new Location("Cleveland", 0, 0, true);
-        Location np = new Location("North Pole", 500, -100, true);
-        Location ch = new Location("Campbell Hill", -50, -50, false);
-        Location tokyo = new Location("Tokyo", -100, 1000, true);
-        Location chicago = new Location("Chicago", -200, 75, true);
-        Location epa = new Location("Erie, PA", 150, 0, true);
-        Location anf = new Location("Allegheny Nation Forest", 300, -75, false);
+//        Location np = new Location("North Pole", 500, -100, true);
+//        Location ch = new Location("Campbell Hill", -50, -50, false);
+//        Location tokyo = new Location("Tokyo", -100, 1000, true);
+//        Location chicago = new Location("Chicago", -200, 75, true);
+//        Location epa = new Location("Erie PA", 150, 0, true);
+//        Location anf = new Location("Allegheny Nation Forest", 300, -75, false);
 
         AnchorPane root = new AnchorPane();
         AnchorPane pCreateHelicopter = new AnchorPane();
@@ -50,6 +52,8 @@ public class Main extends Application {
             bConfirmLocation.setText("Confirm Location");
         Button bRemoveLocation = new Button();
             bRemoveLocation.setText("Remove Location");
+        Button bSave = new Button();
+            bSave.setText("Save File");
 
 
         TextField tMaxFuel = new TextField();
@@ -79,13 +83,37 @@ public class Main extends Application {
             lAddLocation.setText("Add a Location");
 
 
-        location.getItems().add(cleveland);
-        location.getItems().add(np);
-        location.getItems().add(ch);
-        location.getItems().add(tokyo);
-        location.getItems().add(chicago);
-        location.getItems().add(epa);
-        location.getItems().add(anf);
+//        location.getItems().add(cleveland);
+//        location.getItems().add(np);
+//        location.getItems().add(ch);
+//        location.getItems().add(tokyo);
+//        location.getItems().add(chicago);
+//        location.getItems().add(epa);
+//        location.getItems().add(anf);
+        try
+        {
+            FileReader fr = new FileReader(new File("src/locations/locations.csv"));
+            BufferedReader reader = new BufferedReader(fr);
+
+            String line = null;
+
+            while((line = reader.readLine()) != null)
+            {
+                String[] cs = line.split(",");
+
+                String name = cs[0];
+                int x = Integer.parseInt(cs[1]);
+                int y = Integer.parseInt(cs[2]);
+                boolean fuel = Boolean.parseBoolean(cs[3]);
+
+                location.getItems().add(new Location(name, x, y, fuel));
+            }
+            reader.close();
+        }
+        catch(Exception ex)
+        {
+            System.out.println("Could not read file.");
+        }
 
         Helicopter helicopter = new Helicopter(cleveland, 0, 0);
 
@@ -154,6 +182,22 @@ public class Main extends Application {
             }
         });
 
+        bSave.setOnAction((ActionEvent event) -> {
+            try
+            {
+                FileWriter fw = new FileWriter("src/locations/locations.csv");
+                for(int i = 0; i < location.getItems().size(); i++)
+                {
+                    fw.write(location.getItems().get(i).getFileLine());
+                }
+                fw.close();
+            }
+            catch(IOException ex)
+            {
+                System.out.println("File not found");
+            }
+        });
+
         // -- Adding all to the stage --
         AnchorPane.setLeftAnchor(location, 40.0);
         AnchorPane.setTopAnchor(location,20.0);
@@ -175,6 +219,9 @@ public class Main extends Application {
 
         AnchorPane.setRightAnchor(bRemoveLocation, 40.0);
         AnchorPane.setTopAnchor(bRemoveLocation,160.0);
+
+        AnchorPane.setRightAnchor(bSave, 40.0);
+        AnchorPane.setTopAnchor(bSave,200.0);
 
         AnchorPane.setLeftAnchor(lCreate, 40.0);
         AnchorPane.setTopAnchor(lCreate,20.0);
@@ -224,7 +271,7 @@ public class Main extends Application {
         AnchorPane.setLeftAnchor(bConfirmLocation, 160.0);
         AnchorPane.setTopAnchor(bConfirmLocation,220.0);
 
-        root.getChildren().addAll(lLocation, location, bFly, bRefuel, lCurrentFuel, bAddLocation, bRemoveLocation);
+        root.getChildren().addAll(lLocation, location, bFly, bRefuel, lCurrentFuel, bAddLocation, bRemoveLocation, bSave);
         pCreateHelicopter.getChildren().addAll(tMaxFuel,tMpg,createHelicopter, lMpg,lMaxFuel,lCreate);
         pAddLocation.getChildren().addAll(lName, lXcor, lYcor, lAddLocation, tName, tXcor, tYcor, cFuel, lFuel, bConfirmLocation);
     }

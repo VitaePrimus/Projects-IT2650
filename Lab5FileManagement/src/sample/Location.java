@@ -28,6 +28,10 @@ public class Location {
         return locY;
     }
 
+    public String getFileLine(){
+        return getName() + "," +getLocX()+ "," + getLocY() + "," + getFuel() + "\n";
+    }
+
     @Override
     public String toString(){
         return name + " | Fuel: " + getFuel();
