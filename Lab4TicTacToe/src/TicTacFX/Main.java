@@ -82,7 +82,7 @@ public class Main extends Application {
                     System.out.println("You clicked: " + clicked.getX() + ", " + clicked.getY());
 
                     //Before making a move, this if statement ensures the space is empty.
-                    if(game.checkSpaceEmpty(clicked.getX(), clicked.getY()))
+                    if(game.checkSpaceEmpty(clicked.getX(), clicked.getY()) && !game.checkWin())
                     {
                         game.markSpot(clicked.getX(), clicked.getY());
                         //Using the takeTurn method, we can alternate between the two players.
@@ -96,7 +96,15 @@ public class Main extends Application {
                             clicked.setGraphic(new ImageView(bunny));
                         }
                     }
+                    if(game.checkWin() && game.getTurn()){
+                        System.out.println("p1 wins");
+                    }
+                    else if(game.checkWin() && !game.getTurn()){
+                        System.out.println("p2 wins");
+                    }
+
                 });
+
             }
         }
 
@@ -109,13 +117,18 @@ public class Main extends Application {
             System.out.println("Reset pressed");
             //To remove an image from an item, you can just use the setGraphic method and set it to null.
             //For example box[0][0].setGraphic(null);
+            for(int x = 0; x < box.length; x++) {
+                for (int y = 0; y < box[x].length; y++) {
+                    game.resetBoard(box[x][y], x, y);
+                }
+            }
+
         });
 
         //This program still has some incomplete items
         //Such as checking for a winner
         //Resetting the game
         //And possibly even keeping track of wins and losses.
-
 
         AnchorPane.setRightAnchor(reset, 20.0);
         AnchorPane.setBottomAnchor(reset, 20.0);
