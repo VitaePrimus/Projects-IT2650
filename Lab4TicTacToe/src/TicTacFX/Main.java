@@ -30,8 +30,8 @@ public class Main extends Application {
 
         //This is how you load up an image.
         //For images, the root folder is the src folder.
-        Image chick = new Image("images/candy.png");
-        Image bunny = new Image("images/ornament.png");
+        Image candy = new Image("images/candy.png");
+        Image ornament = new Image("images/ornament.png");
 
         //This label is just a big pick square sitting behind the tic tac toe buttons.
         //The getStyleClass().add() method applies a CSS class to a javafx control object.
@@ -103,11 +103,11 @@ public class Main extends Application {
                         if (game.takeTurn()) {
                             //clicked.setText("X");
                             sm.tweetSound();
-                            clicked.setGraphic(new ImageView(chick));
+                            clicked.setGraphic(new ImageView(candy));
                         } else{
                             //clicked.setText("O");
                             sm.hopSound();
-                            clicked.setGraphic(new ImageView(bunny));
+                            clicked.setGraphic(new ImageView(ornament));
                         }
                     }
                     if(game.checkWin() && game.getTurn() && !game.getStop()){

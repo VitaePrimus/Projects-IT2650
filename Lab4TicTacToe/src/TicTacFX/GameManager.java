@@ -59,13 +59,7 @@ public class GameManager {
         }
     }
 
-    public int getSpot(int x, int y){
-        return board[x][y];
-    }
-
-    public void stop(){
-        stop = true;
-    }
+    public void stop(){ stop = true; }
 
     public boolean getStop() { return stop; }
 
