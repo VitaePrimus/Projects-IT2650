@@ -30,8 +30,8 @@ public class Main extends Application {
 
         //This is how you load up an image.
         //For images, the root folder is the src folder.
-        Image chick = new Image("images/chick.jpg");
-        Image bunny = new Image("images/bunny.jpg");
+        Image chick = new Image("images/candy.png");
+        Image bunny = new Image("images/ornament.png");
 
         //This label is just a big pick square sitting behind the tic tac toe buttons.
         //The getStyleClass().add() method applies a CSS class to a javafx control object.
@@ -171,7 +171,7 @@ public class Main extends Application {
         //This line attaches the CSS file to this program.
         scene.getStylesheets().add("TicTacFX/styles.css");
 
-        primaryStage.setTitle("Easter Themed Tic-Tac-Toe");
+        primaryStage.setTitle("Christmas Themed Tic-Tac-Toe");
         primaryStage.setScene(scene);
         primaryStage.show();
     }

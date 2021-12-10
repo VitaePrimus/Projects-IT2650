@@ -1,12 +1,12 @@
 .root
 {
     -fx-background-color: LightGoldenRodYellow;
-    -fx-background-image: url("../images/background.jpg");
+    -fx-background-image: url("../images/Christmas.jpg");
 }
 
 .color1
 {
-    -fx-background-color: MediumPurple;
+    -fx-background-color: Red;
 }
 
 .color2
@@ -28,18 +28,18 @@
 
 .bbStyle
 {
-    -fx-background-color: Fuchsia;
-    -fx-border-color: Indigo;
+    -fx-background-color: Green;
+    -fx-border-color: Red;
     -fx-border-style: solid;
     -fx-border-width: 2;
 }
 
 .bReset
 {
-    -fx-background-color: Aqua;
-    -fx-border-color: Indigo;
+    -fx-background-color: White;
+    -fx-border-color: Red;
     -fx-border-style: solid;
-    -fx-border-width: 4;
+    -fx-border-width: 3;
     -fx-border-radius: 30px;
     -fx-background-radius: 30px;
     -fx-font-size: 18px;
@@ -48,13 +48,13 @@
 
 .bReset:hover
 {
-    -fx-background-color: DarkGoldenRod;
+    -fx-background-color: Yellow;
     -fx-text-fill: Aqua;
 }
 
 .bReset:pressed
 {
-    -fx-background-color: Indigo;
+    -fx-background-color: Gold;
 }
 
 .lTitle
@@ -66,5 +66,5 @@
 .lWinsCount
 {
     -fx-font-size: 24px;
-    -fx-text-fill: Pink;
+    -fx-text-fill: Purple;
 }
