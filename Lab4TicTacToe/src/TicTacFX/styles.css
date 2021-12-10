@@ -62,3 +62,9 @@
     -fx-font-size: 48px;
     -fx-text-fill: Indigo;
 }
+
+.lWinsCount
+{
+    -fx-font-size: 24px;
+    -fx-text-fill: Pink;
+}

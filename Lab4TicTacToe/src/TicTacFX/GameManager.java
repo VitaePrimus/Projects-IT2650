@@ -8,12 +8,14 @@ import javax.swing.text.html.ImageView;
 
 public class GameManager {
 
+    public boolean stop;
     private boolean turn;
     private final int[][] board = new int[3][3];
 
     GameManager()
     {
         turn = false;
+        stop = false;
         for(int x = 0; x < 3; x ++)
         {
             for(int y = 0; y < 3; y ++)
@@ -61,12 +63,19 @@ public class GameManager {
         return board[x][y];
     }
 
+    public void stop(){
+        stop = true;
+    }
+
+    public boolean getStop() { return stop; }
+
     public void resetBoard(TTTbutton button, int x, int y)
     {
         //Fill me in
         button.setGraphic(null);
         board[x][y] = 0;
         turn = false;
+        stop = false;
     }
 
     public boolean checkWin()
@@ -101,8 +110,6 @@ public class GameManager {
             win = true;
         }
 
-
         return win;
     }
-
 }

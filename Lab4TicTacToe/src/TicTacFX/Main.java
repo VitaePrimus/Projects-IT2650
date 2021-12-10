@@ -10,6 +10,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class Main extends Application {
 
     @Override
@@ -20,6 +22,9 @@ public class Main extends Application {
         //This is the creation of the GameManager and SoundManager objects,
         GameManager game = new GameManager();
         SoundManager sm = new SoundManager();
+
+        AtomicInteger p1count = new AtomicInteger();
+        AtomicInteger p2count = new AtomicInteger();
 
         TTTbutton[][] box = new TTTbutton[3][3];
 
@@ -39,11 +44,20 @@ public class Main extends Application {
         Label title = new Label("Tic-Tac-Toe!");
         title.getStyleClass().add("lTitle");
 
+        Label lWinsCount = new Label();
+        lWinsCount.setText("Score: P1 - " + p1count + " P2 - " + p2count);
+        lWinsCount.getStyleClass().add("lWinsCount");
+
         AnchorPane.setRightAnchor(title, 100.0);
         AnchorPane.setTopAnchor(title, 20.0);
+
+        AnchorPane.setLeftAnchor(lWinsCount, 20.0);
+        AnchorPane.setBottomAnchor(lWinsCount, 20.0);
+
         AnchorPane.setLeftAnchor(bb, 100.0);
         AnchorPane.setTopAnchor(bb, 100.0);
-        root.getChildren().addAll(bb, title);
+
+        root.getChildren().addAll(bb, title, lWinsCount);
 
         //This calls the method in the sound manager to start the background music.
         sm.startMusic();
@@ -90,19 +104,24 @@ public class Main extends Application {
                             //clicked.setText("X");
                             sm.tweetSound();
                             clicked.setGraphic(new ImageView(chick));
-                        } else {
+                        } else{
                             //clicked.setText("O");
                             sm.hopSound();
                             clicked.setGraphic(new ImageView(bunny));
                         }
                     }
-                    if(game.checkWin() && game.getTurn()){
+                    if(game.checkWin() && game.getTurn() && !game.getStop()){
                         System.out.println("p1 wins");
+                        p1count.getAndIncrement(); // Had no idea what this does, p1count++ did not work, Intellij converted to this automatically
+                        lWinsCount.setText("Score: P1 - " + p1count + " P2 - " + p2count);
+                        game.stop();
                     }
-                    else if(game.checkWin() && !game.getTurn()){
+                    else if(game.checkWin() && !game.getTurn() && !game.getStop()){
                         System.out.println("p2 wins");
+                        p2count.getAndIncrement();
+                        lWinsCount.setText("Score: P1 - " + p1count + " P2 - " + p2count);
+                        game.stop();
                     }
-
                 });
 
             }
@@ -125,14 +144,27 @@ public class Main extends Application {
 
         });
 
-        //This program still has some incomplete items
+        Button mute = new Button("Mute");
+        mute.getStyleClass().add("bReset");
+        mute.setPrefSize(80,60);
+        mute.setOnAction((ActionEvent event) ->{
+            sm.muteMusic();
+            System.out.println("Mute Pressed");
+        });
+
+
+            //This program still has some incomplete items
         //Such as checking for a winner
         //Resetting the game
         //And possibly even keeping track of wins and losses.
 
         AnchorPane.setRightAnchor(reset, 20.0);
         AnchorPane.setBottomAnchor(reset, 20.0);
-        root.getChildren().add(reset);
+
+        AnchorPane.setRightAnchor(mute, 140.0);
+        AnchorPane.setBottomAnchor(mute, 20.0);
+
+        root.getChildren().addAll(reset, mute);
 
         Scene scene = new Scene(root, 600, 600);
 
