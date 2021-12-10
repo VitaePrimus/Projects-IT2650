@@ -25,10 +25,10 @@ import java.nio.file.Paths;
 public class SoundManager {
 
     //This is basically the way to setup an AudioClip and MediaPlayer object.
-    private final MediaPlayer music =  new MediaPlayer(new Media(Paths.get("src/sounds/piano.mp3").toUri().toString()));
+    private final MediaPlayer music =  new MediaPlayer(new Media(Paths.get("src/sounds/carol.mp3").toUri().toString()));
     private final AudioClip tweet = new AudioClip(Paths.get("src/sounds/tweet.mp3").toUri().toString());
     private final AudioClip hop = new AudioClip(Paths.get("src/sounds/hop.mp3").toUri().toString());
-    boolean mute = false;
+    private boolean mute = false;
 
 
     //These are basic method to play the various sounds.
