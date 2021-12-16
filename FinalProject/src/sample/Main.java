@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -90,14 +91,32 @@ public class Main extends Application {
                 if(spawnCount == 1) {
                     gm.spawnEnemy();
                 }
-                if(spawnCount > 100){
+                if(spawnCount > 40){
                     spawnCount = 0;
                 }
                 for(int i = 0; i < gm.enemy.size(); i++) {
-                    gm.moveEnemy(gm.enemy.get(i));
+                    gm.moveEnemy(gm.enemy.get(i), ts);
+                    if(gm.enemy.get(i).getY() > 600){
+                        ship.boom();
+                    }
+                    if(gm.enemy.get(i).getY() > 700){
+                        gm.enemy.remove(i);
+                    }
                 }
                 for(int i = 0; i < gm.bullets.size(); i++) {
-                    gm.moveBulet(gm.bullets.get(i));
+                    gm.moveBulet(gm.bullets.get(i), ts);
+                    if(gm.bullets.get(i).getY() < 0){
+                        gm.bullets.remove(i);
+                    }
+                }
+                for(int i = 0; i < gm.bullets.size(); i++) {
+                    for (int a = 0; a < gm.enemy.size(); a++) {
+                        if (gm.bullets.get(i).collision(new StaticSprite("images/asteroid.png", gm.enemy.get(a).getX(), gm.enemy.get(a).getY()))){
+                            gm.enemy.get(a).setFrame(new Image("images/boom.png"));
+                            gm.enemy.remove(a);
+                            gm.bullets.remove(i);
+                        }
+                    }
                 }
 
                 if (ship.getX() <= 0) {
@@ -112,13 +131,13 @@ public class Main extends Application {
 
 
                     if (input.contains("A")) {
-                        ship.moveX(-180 * ts);
+                        ship.moveX(-420 * ts);
                     }
                     if (input.contains("D")) {
-                        ship.moveX(180 * ts);
+                        ship.moveX(420 * ts);
                     }
 
-                    if (input.contains("SPACE") && spawnCount % 20 == 0) {
+                    if (input.contains("SPACE") && spawnCount % 10 == 0) {
                         gm.spawnBullet(ship.getX());
                     }
 

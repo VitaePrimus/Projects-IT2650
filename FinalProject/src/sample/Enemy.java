@@ -24,6 +24,7 @@ public class Enemy {
     public double getWidth() { return spriteEnemy.getWidth(); }
     public double getHeight() { return spriteEnemy.getHeight();}
     public Image getFrame(){ return spriteEnemy; }
+    public void setFrame(Image image){ spriteEnemy = image; }
 
     public void move(double amount) { y = y + amount; }
 

@@ -26,7 +26,10 @@ public class Ship {
 
         public boolean isAlive() { return alive; }
 
-    public void boom() { alive = false; }
+    public void boom() {
+        alive = false;
+        spriteShip = new Image("images/boom.png");
+    }
 
     public void moveX(double amount) { x = x + amount; }
     public void moveY(double amount) { y = y + amount; }

@@ -35,19 +35,15 @@ public class GameManager {
         }
     }
 
-    public void moveEnemy(Enemy enemy){
-        enemy.move(1.1);
+    public void moveEnemy(Enemy enemy, double ts){
+        enemy.move(200 * ts);
     }
-    public void moveBulet(Bullet bullet){
-        bullet.move(5);
+    public void moveBulet(Bullet bullet, double ts){
+        bullet.move(700 * ts);
     }
 
     public void spawnBullet(double shipPos){
         bullets.add(new Bullet((int)(shipPos + 47.0), 700));
-    }
-
-    public void moveBullet(){
-
     }
 
 //    public Enemy getEnemy(){

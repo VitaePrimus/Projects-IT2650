@@ -24,5 +24,17 @@ public class Bullet {
     public Image getFrame(){ return spriteBullet; }
     public void move(double amount) { y = y - amount; }
 
+    public boolean collision(StaticSprite sprite)
+    {
+        boolean hit = false;
+        if(this.getX2() > sprite.getX1() &&
+                this.x < sprite.getX2() &&
+                this.getY2() > sprite.getY1()
+                && this.y < sprite.getY2())
+        {
+            hit = true;
+        }
+        return hit;
+    }
 
 }
