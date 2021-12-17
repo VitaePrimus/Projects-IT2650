@@ -126,7 +126,6 @@ public class Main extends Application {
                     ship.moveX(-20 * ts);
                 }
 
-                //This will take input and check for collisions if the UFO is 'alive'
                 if(ship.isAlive() && ship.getX() > 0 && ship.getX() < 400) {
 
 
@@ -140,34 +139,6 @@ public class Main extends Application {
                     if (input.contains("SPACE") && spawnCount % 10 == 0) {
                         gm.spawnBullet(ship.getX());
                     }
-
-                    //Checks to see if the UFO hits Earth. If it does, BOOM!
-//                    if ( ship.collisionSide(enemy) != 'n') {
-//                        ship.boom();
-//                    }
-
-                    //Checks to see if the UFO hits the block, and if so, from which side.
-                    //Hitting the block will stop the UFOs momentum in that direction.
-                    //Instead of stopping the momentum, you could bounce, or reverse the UFO momentum
-                    //by using the 'bounce' methods instead of the resetAccel methods.
-//                    switch (ufo.collisionSide(block)){
-//                        case 'r':
-//                            ufo.setX(block.getX1() - ufo.getWidth());
-//                            ufo.resetAccelX();
-//                            break;
-//                        case 'l':
-//                            ufo.setX((block.getX2()));
-//                            ufo.resetAccelX();
-//                            break;
-//                        case 'b':
-//                            ufo.setY(block.getY1() - ufo.getHeight());
-//                            ufo.resetAccelY();
-//                            break;
-//                        case 't':
-//                            ufo.setY((block.getY2()));
-//                            ufo.resetAccelY();
-//                    }
-
                 }
             }
         }.start();
